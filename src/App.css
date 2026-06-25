@@ -1,0 +1,407 @@
+.app-shell {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Header with Logo */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.app-logo {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  /* El mix-blend-mode "multiply" hace que el fondo blanco de la imagen 
+     se vuelva invisible contra el fondo claro de la aplicación. */
+  mix-blend-mode: multiply;
+}
+
+.app-title-container h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  letter-spacing: -0.02em;
+}
+
+.app-subtitle-container p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Toolbar & Searches */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.search {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 400;
+  box-shadow: var(--shadow-sm);
+}
+.search::placeholder {
+  color: #9ca3af;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  outline: none;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  background: var(--brand-navy);
+  color: #fff;
+  box-shadow: 0 4px 6px -1px rgba(25, 43, 77, 0.2);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--brand-navy-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -2px rgba(25, 43, 77, 0.25);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--brand-navy);
+  border: 1.5px solid var(--border);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(25, 43, 77, 0.04);
+  border-color: #cbd5e1;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1.5px solid #fca5a5;
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+}
+
+.btn-gold {
+  background: var(--brand-gold);
+  color: #fff;
+  border: none;
+}
+.btn-gold:hover {
+  background: var(--brand-gold-hover);
+}
+
+/* Cards */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: rgba(195, 155, 84, 0.3); /* Subtle gold border on hover */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0 0 0.4rem;
+  color: var(--brand-navy);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(195, 155, 84, 0.15); /* Gold tinted */
+  color: #a17823;                       /* Darker gold for contrast */
+}
+.badge-inactive {
+  background: #f1f5f9;
+  color: var(--text-muted);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  flex: 1; /* Pushes actions to the bottom */
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.25rem;
+}
+
+.value {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 1.1rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 26, 48, 0.4); /* Navy tinted backdrop */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center; /* Center vertically instead of flex-start */
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.4rem;
+  color: var(--brand-navy);
+  font-weight: 700;
+}
+
+.form-row {
+  margin-bottom: 1.25rem;
+}
+
+.form-row label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand-navy-light);
+  margin-bottom: 0.4rem;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fcfcfd;
+}
+.form-row input:hover:not(:disabled),
+.form-row textarea:hover:not(:disabled) {
+  border-color: #cbd5e1;
+}
+
+.form-row textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-weight: 500 !important;
+  color: var(--text) !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--brand-gold); /* Colors checkbox gold natively */
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.form-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  border: 1px solid #fca5a5;
+}
+
+/* Amplify Authenticator Integrations */
+[data-amplify-authenticator] {
+  --amplify-components-button-primary-background-color: var(--brand-navy);
+  --amplify-components-button-primary-hover-background-color: var(--brand-navy-light);
+  --amplify-components-tabs-item-active-border-color: var(--brand-gold);
+  --amplify-components-tabs-item-active-color: var(--brand-gold);
+  --amplify-primary-color: var(--brand-navy);
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Fallback Panel */
+.setup-panel {
+  max-width: 540px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+.setup-panel h1 {
+  margin-top: 0;
+  color: var(--brand-navy);
+  font-size: 2.25rem;
+}
+.setup-panel code {
+  display: inline-block;
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background: #f1f5f9;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand-navy-dark);
+  border: 1px solid var(--border);
+}
+
+/* Authentication Screen Centering */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.auth-logo-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.auth-logo-header .app-logo {
+  height: 80px;
+  margin-bottom: 0.5rem;
+}
+
+.auth-logo-header .app-title {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  letter-spacing: -0.02em;
+}

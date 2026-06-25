@@ -1,0 +1,121 @@
+.registration-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 1rem 1rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: linear-gradient(180deg, #eef1f6 0%, var(--bg) 40%);
+}
+
+.registration-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.registration-logo {
+  display: block;
+  height: 64px;
+  width: auto;
+  margin: 0 auto 1rem;
+  mix-blend-mode: multiply;
+}
+
+.registration-card h1 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.registration-lead {
+  margin: 0 0 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.registration-form .form-row {
+  margin-bottom: 1rem;
+}
+
+.registration-form .form-row label {
+  font-size: 0.8rem;
+}
+
+.registration-form input {
+  font-size: 1rem;
+  padding: 0.75rem 0.85rem;
+}
+
+.registration-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+.registration-success {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.registration-success h1 {
+  margin-bottom: 0.75rem;
+}
+
+.registration-success p {
+  margin: 0 0 1.5rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.registration-offline {
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.registration-offline p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.registration-mock-badge {
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgba(195, 155, 84, 0.12);
+  color: #8a6520;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .registration-page {
+    align-items: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .registration-card {
+    padding: 2rem 1.75rem 2.25rem;
+  }
+
+  .registration-card h1 {
+    font-size: 1.65rem;
+  }
+}

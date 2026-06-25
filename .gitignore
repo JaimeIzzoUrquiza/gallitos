@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Amplify (generado localmente / en CI)
+.amplify
+amplify_outputs.json
+amplifyconfiguration*
+
+# Build
+dist
+
+# Environment
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Local deploy helpers
+.amplify-trust-policy.json
