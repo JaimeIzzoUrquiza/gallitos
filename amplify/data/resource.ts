@@ -1,4 +1,14 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData, defineFunction } from '@aws-amplify/backend';
+
+const registerParticipantHandler = defineFunction({
+  name: 'register-participant',
+  entry: './register-participant/handler.ts',
+  timeoutSeconds: 30,
+  environment: {
+    FROM_EMAIL: 'gallitos@jidevs.com',
+    FROM_NAME: 'Gallitos',
+  },
+});
 
 /**
  * Integrantes del equipo Gallitos + GHIN (USGA).
@@ -33,10 +43,23 @@ const schema = a.schema({
       phone: a.string().required(),
       email: a.email().required(),
     })
-    .authorization((allow) => [
-      allow.publicApiKey().to(['create']),
-      allow.authenticated().to(['read', 'create', 'update', 'delete']),
-    ]),
+    .authorization((allow) => [allow.authenticated().to(['read', 'create', 'update', 'delete'])]),
+
+  /** Registro público con confirmación por correo. */
+  registerParticipant: a
+    .mutation()
+    .arguments({
+      firstName: a.string().required(),
+      paternalLastName: a.string().required(),
+      maternalLastName: a.string().required(),
+      ghin: a.string().required(),
+      handicapIndex: a.string().required(),
+      phone: a.string().required(),
+      email: a.email().required(),
+    })
+    .returns(a.ref('Participant'))
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(registerParticipantHandler)),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -48,3 +71,5 @@ export const data = defineData({
     apiKeyAuthorizationMode: { expiresInDays: 365 },
   },
 });
+
+export { registerParticipantHandler };

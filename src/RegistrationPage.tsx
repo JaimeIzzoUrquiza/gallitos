@@ -114,6 +114,7 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
   const canSubmit = amplifyReady || isMock;
 
@@ -143,11 +144,12 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
         await new Promise((r) => setTimeout(r, 600));
         console.info('[mock] Integrante registrado:', payload);
       } else {
-        const { errors } = await client.models.Participant.create(payload, {
+        const { errors } = await client.mutations.registerParticipant(payload, {
           authMode: 'apiKey',
         });
         if (errors?.length) throw new Error(errors[0].message);
       }
+      setSubmittedEmail(payload.email);
       setSubmitted(true);
       setValues(emptyForm);
     } catch (err) {
@@ -163,11 +165,17 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
         <div className="registration-card registration-success">
           <img src="/logo.png" alt="Gallitos" className="registration-logo" />
           <h1>¡Registro recibido!</h1>
-          <p>Tus datos fueron enviados correctamente. Gracias por registrarte.</p>
+          <p>
+            Tus datos fueron enviados correctamente. Te enviamos un correo de confirmación a{' '}
+            <strong>{submittedEmail}</strong>. Gracias por registrarte.
+          </p>
           <button
             type="button"
             className="btn btn-primary registration-submit"
-            onClick={() => setSubmitted(false)}
+            onClick={() => {
+              setSubmitted(false);
+              setSubmittedEmail('');
+            }}
           >
             Registrar otro integrante
           </button>
