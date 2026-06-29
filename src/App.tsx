@@ -762,11 +762,14 @@ function AuthWrapper(props: { userEmail: string; signOut: () => void; isMock: bo
 }
 
 
+function isRegistrationPath(pathname: string) {
+  const normalized = pathname.replace(/\/+$/, '') || '/';
+  return normalized === '/registro' || normalized.endsWith('/registro');
+}
+
 export default function App() {
   const [isMock, setIsMock] = useState(false);
-  const isRegistrationRoute =
-    window.location.pathname === '/registro' ||
-    window.location.pathname.endsWith('/registro');
+  const isRegistrationRoute = isRegistrationPath(window.location.pathname);
 
   if (isRegistrationRoute) {
     const mockFromQuery = new URLSearchParams(window.location.search).get('mock') === '1';
