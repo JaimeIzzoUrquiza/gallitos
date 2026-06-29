@@ -7,6 +7,8 @@ const registerParticipantHandler = defineFunction({
   environment: {
     FROM_EMAIL: 'gallitos@jidevs.com',
     FROM_NAME: 'Gallitos',
+    PARTICIPANT_TABLE_NAME: '',
+    LOGO_URL: '',
   },
 });
 

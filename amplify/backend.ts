@@ -1,5 +1,6 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Function as LambdaFunction } from 'aws-cdk-lib/aws-lambda';
 import { auth } from './auth/resource';
 import { data, registerParticipantHandler } from './data/resource';
 
@@ -26,11 +27,11 @@ cfnUserPool.addPropertyOverride(
 );
 
 const participantTable = backend.data.resources.tables['Participant'];
-const registerFn = backend.registerParticipantHandler.resources.lambda;
+const registerFn = backend.registerParticipantHandler.resources.lambda as LambdaFunction;
 
 participantTable.grantWriteData(registerFn);
 registerFn.addEnvironment('PARTICIPANT_TABLE_NAME', participantTable.tableName);
-registerFn.addEnvironment('LOGO_URL', APP_BASE_URL ? `${APP_BASE_URL}/logo.png` : '');
+registerFn.addEnvironment('LOGO_URL', APP_BASE_URL ? `${APP_BASE_URL.replace(/\/$/, '')}/logo.png` : '');
 
 registerFn.addToRolePolicy(
   new PolicyStatement({
