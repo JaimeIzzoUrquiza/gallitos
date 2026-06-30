@@ -7,7 +7,7 @@ backend:
         - npm install --include=optional
         # URL pública del frontend para el logo en correos de confirmación.
         # Amplify inyecta AWS_BRANCH y AWS_APP_ID en cada build.
-        - export GALLITOS_APP_URL="https://${AWS_BRANCH}.${AWS_APP_ID}.amplifyapp.com"
+        - export GALLITOS_APP_URL="https://gallitos.jidevs.com"
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
   phases:

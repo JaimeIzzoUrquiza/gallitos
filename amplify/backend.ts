@@ -36,6 +36,6 @@ registerFn.addEnvironment('LOGO_URL', APP_BASE_URL ? `${APP_BASE_URL.replace(/\/
 registerFn.addToRolePolicy(
   new PolicyStatement({
     actions: ['ses:SendEmail', 'ses:SendRawEmail'],
-    resources: ['arn:aws:ses:us-east-1:794098635886:identity/jidevs.com'],
+    resources: ['*'],
   }),
 );
