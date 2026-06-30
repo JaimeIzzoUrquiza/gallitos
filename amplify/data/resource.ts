@@ -48,6 +48,13 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.authenticated().to(['read', 'create', 'update', 'delete'])]),
 
+  /** Respuesta pública del registro (sin auth de lectura sobre Participant). */
+  RegistrationResult: a.customType({
+    id: a.id().required(),
+    firstName: a.string().required(),
+    email: a.email().required(),
+  }),
+
   /** Registro público con confirmación por correo. */
   registerParticipant: a
     .mutation()
@@ -60,7 +67,7 @@ const schema = a.schema({
       phone: a.string().required(),
       email: a.email().required(),
     })
-    .returns(a.ref('Participant'))
+    .returns(a.ref('RegistrationResult'))
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(registerParticipantHandler)),
 });

@@ -83,5 +83,9 @@ export const handler: Schema['registerParticipant']['functionHandler'] = async (
     }),
   );
 
-  return participant;
+  return {
+    id: participant.id,
+    firstName: participant.firstName,
+    email: participant.email,
+  };
 };
