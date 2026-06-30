@@ -3,6 +3,7 @@ import { type ClientSchema, a, defineData, defineFunction } from '@aws-amplify/b
 const registerParticipantHandler = defineFunction({
   name: 'register-participant',
   entry: './register-participant/handler.ts',
+  resourceGroupName: 'data',
   timeoutSeconds: 30,
   environment: {
     FROM_EMAIL: 'gallitos@jidevs.com',
