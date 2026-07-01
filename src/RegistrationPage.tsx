@@ -32,7 +32,7 @@ const HANDICAP_RE = /^(\+\d{1,2}\.\d|\d{1,2}\.\d)$/;
 const MAX_HANDICAP = 54.0;
 
 function normalizePhone(value: string) {
-  return value.replace(/\D/g, '');
+  return value.replace(/\D/g, '').slice(0, 10);
 }
 
 function normalizeGhin(value: string) {
@@ -115,6 +115,7 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState('');
+  const [confirmationEmailSent, setConfirmationEmailSent] = useState(true);
 
   const canSubmit = amplifyReady || isMock;
 
@@ -143,11 +144,13 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
       if (isMock) {
         await new Promise((r) => setTimeout(r, 600));
         console.info('[mock] Integrante registrado:', payload);
+        setConfirmationEmailSent(true);
       } else {
-        const { errors } = await client.mutations.registerParticipant(payload, {
+        const { data, errors } = await client.mutations.registerParticipant(payload, {
           authMode: 'apiKey',
         });
         if (errors?.length) throw new Error(errors[0].message);
+        setConfirmationEmailSent(data?.confirmationEmailSent ?? false);
       }
       setSubmittedEmail(payload.email);
       setSubmitted(true);
@@ -165,16 +168,24 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
         <div className="registration-card registration-success">
           <img src="/logo.png" alt="Gallitos" className="registration-logo" />
           <h1>¡Registro recibido!</h1>
-          <p>
-            Tus datos fueron enviados correctamente. Te enviamos un correo de confirmación a{' '}
-            <strong>{submittedEmail}</strong>. Gracias por registrarte.
-          </p>
+          {confirmationEmailSent ? (
+            <p>
+              Tus datos fueron enviados correctamente. Te enviamos un correo de confirmación a{' '}
+              <strong>{submittedEmail}</strong>. Gracias por registrarte.
+            </p>
+          ) : (
+            <p>
+              Tus datos fueron guardados correctamente. No pudimos enviar el correo de confirmación a{' '}
+              <strong>{submittedEmail}</strong>; el organizador ya tiene tu registro. Gracias por registrarte.
+            </p>
+          )}
           <button
             type="button"
             className="btn btn-primary registration-submit"
             onClick={() => {
               setSubmitted(false);
               setSubmittedEmail('');
+              setConfirmationEmailSent(true);
             }}
           >
             Registrar otro integrante
@@ -280,10 +291,10 @@ export default function RegistrationPage({ isMock = false }: RegistrationPagePro
                   type="tel"
                   inputMode="numeric"
                   value={values.phone}
-                  onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+                  onChange={(e) => setValues((v) => ({ ...v, phone: normalizePhone(e.target.value) }))}
                   autoComplete="tel"
                   placeholder="10 dígitos"
-                  maxLength={15}
+                  maxLength={10}
                   required
                 />
               </div>

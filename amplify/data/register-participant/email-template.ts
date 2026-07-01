@@ -101,13 +101,6 @@ export function buildRegistrationEmailHtml(data: RegistrationEmailData) {
               </table>
             </td>
           </tr>
-          <tr>
-            <td style="padding:20px 28px 28px;border-top:1px solid #e5e7eb;text-align:center;background:#fcfcfd;">
-              <p style="margin:0;font-size:13px;line-height:1.5;color:#6b7280;">
-                Conserva este correo como comprobante de tu inscripción.
-              </p>
-            </td>
-          </tr>
         </table>
         <p style="margin:20px 0 0;font-size:12px;color:#9ca3af;">Equipo Gallitos</p>
       </td>

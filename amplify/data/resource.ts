@@ -53,6 +53,8 @@ const schema = a.schema({
     id: a.id().required(),
     firstName: a.string().required(),
     email: a.email().required(),
+    /** false cuando SES no pudo enviar (p. ej. cuenta en sandbox). */
+    confirmationEmailSent: a.boolean().required(),
   }),
 
   /** Registro público con confirmación por correo. */

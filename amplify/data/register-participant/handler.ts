@@ -48,44 +48,51 @@ export const handler: Schema['registerParticipant']['functionHandler'] = async (
 
   const logoUrl = env.LOGO_URL?.trim() || undefined;
   const fromAddress = env.FROM_NAME ? `${env.FROM_NAME} <${env.FROM_EMAIL}>` : env.FROM_EMAIL;
+  const emailData = {
+    firstName,
+    paternalLastName,
+    maternalLastName,
+    ghin,
+    handicapIndex,
+    phone,
+    email,
+  };
 
-  await ses.send(
-    new SendEmailCommand({
-      Source: fromAddress,
-      Destination: {
-        ToAddresses: [email],
-      },
-      Message: {
-        Subject: {
-          Data: buildRegistrationEmailSubject({ firstName, paternalLastName, maternalLastName, ghin, handicapIndex, phone, email }),
-          Charset: 'UTF-8',
+  let confirmationEmailSent = false;
+  try {
+    await ses.send(
+      new SendEmailCommand({
+        Source: fromAddress,
+        Destination: {
+          ToAddresses: [email],
         },
-        Body: {
-          Text: {
-            Data: buildRegistrationEmailText({ firstName, paternalLastName, maternalLastName, ghin, handicapIndex, phone, email }),
+        Message: {
+          Subject: {
+            Data: buildRegistrationEmailSubject(emailData),
             Charset: 'UTF-8',
           },
-          Html: {
-            Data: buildRegistrationEmailHtml({
-              firstName,
-              paternalLastName,
-              maternalLastName,
-              ghin,
-              handicapIndex,
-              phone,
-              email,
-              logoUrl,
-            }),
-            Charset: 'UTF-8',
+          Body: {
+            Text: {
+              Data: buildRegistrationEmailText(emailData),
+              Charset: 'UTF-8',
+            },
+            Html: {
+              Data: buildRegistrationEmailHtml({ ...emailData, logoUrl }),
+              Charset: 'UTF-8',
+            },
           },
         },
-      },
-    }),
-  );
+      }),
+    );
+    confirmationEmailSent = true;
+  } catch (err) {
+    console.error('Registration saved but confirmation email failed:', err);
+  }
 
   return {
     id: participant.id,
     firstName: participant.firstName,
     email: participant.email,
+    confirmationEmailSent,
   };
 };
